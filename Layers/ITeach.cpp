@@ -84,6 +84,7 @@ void TEACHER::StartTeaching()
 	{
 		const batch& currentBatch = m_teachingData.GetNextBatch();
 		GetBatchError(currentBatch);
+		UpdateWeights();
 	}
 }
 
@@ -117,4 +118,9 @@ void TEACHER::GetBatchError(const batch& Batch)
 	}
 	 
 	m_error /= batchSize;
+}
+
+void TEACHER::UpdateWeights()
+{
+
 }

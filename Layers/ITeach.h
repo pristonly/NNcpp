@@ -36,8 +36,10 @@ class IMPORT_EXPORT TEACHER : public FORWARD_DISTURB
 	double m_teachingCoeff;
 	double m_error = 9999.0;
 	DataSet& m_teachingData;
-	void GetBatchError(const batch&);
 public:
 	TEACHER(DataSet& dataset) : m_teachingCoeff(0.05), m_teachingData(dataset) {}
 	void StartTeaching();
+private:
+	void GetBatchError(const batch&);
+	void UpdateWeights();
 };
