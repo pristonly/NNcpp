@@ -35,6 +35,8 @@ class IMPORT_EXPORT TEACHER : public FORWARD_DISTURB
 {
 	double m_teachingCoeff;
 	double m_error = 9999.0;
+	std::vector<double> m_outputErrors;
+	std::vector<double> m_outputDiff;
 	DataSet& m_teachingData;
 public:
 	TEACHER(DataSet& dataset) : m_teachingCoeff(0.05), m_teachingData(dataset) {}
