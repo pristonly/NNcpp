@@ -6,3 +6,4 @@
 #endif
 
 IMPORT_EXPORT double BinaryFunc(double value);
+IMPORT_EXPORT double DerBinaryFunc(double value);

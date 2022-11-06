@@ -16,10 +16,13 @@ Layers::Layers()
 void Layers::AddNewLayer(uint64_t height,
 	uint64_t width,
 	LAYERSTYPES type,
-	double (*funcActivation)(double))
+	double (*funcActivation)(double),
+	double (*derFuncActivation)(double)
+	)
 {
 	auto lastElem = m_layers.AddNewElem();
 	lastElem->m_funcActivation = funcActivation;
+	lastElem->m_DerfuncActivation = derFuncActivation;
 	lastElem->m_height = height;
 	lastElem->m_width = width;
 	lastElem->m_value = new double[height * width];

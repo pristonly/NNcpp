@@ -21,5 +21,8 @@ struct IMPORT_EXPORT Layer
 	double* m_weights;
 	double* m_value;
 	double (*m_funcActivation)(double);
+	double (*m_DerfuncActivation)(double);
 	LAYERSTYPES m_type;
 };
+
+IMPORT_EXPORT double& GetWeightBeetween(size_t numCurrentNeuron, size_t numNextLayerNeuron, Layer* currentLayer, Layer* nextLayer);

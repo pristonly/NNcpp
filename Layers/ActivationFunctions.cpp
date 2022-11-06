@@ -10,3 +10,8 @@ double BinaryFunc(double value)
 	else
 		return 0.0;
 }
+
+double DerBinaryFunc(double value)
+{
+	return 1.0;
+}

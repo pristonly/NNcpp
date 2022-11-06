@@ -12,7 +12,8 @@ public:
 	virtual void AddNewLayer(uint64_t height,
 		uint64_t width = 1U,
 		LAYERSTYPES type = DFF,
-		double (*funcActivation)(double) = BinaryFunc) = 0;
+		double (*funcActivation)(double) = BinaryFunc,
+		double (*derFuncActivation)(double) = DerBinaryFunc) = 0;
 	virtual void DeleteLayer(uint64_t number) = 0;
 	virtual ~ILayer() = default;
 };
@@ -28,7 +29,8 @@ public:
 		uint64_t height, 
 		uint64_t width = 1U, 
 		LAYERSTYPES type = DFF, 
-		double (*funcActivation)(double) = BinaryFunc
+		double (*funcActivation)(double) = BinaryFunc,
+		double (*derFuncActivation)(double) = DerBinaryFunc
 	);
 	double* InputLayer();
 	double* OutputLayer();

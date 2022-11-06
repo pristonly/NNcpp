@@ -137,16 +137,21 @@ void TEACHER::UpdateWeights()
     auto answerSize = m_layers.GetLayer(lastLayer)->m_height;
     std::vector<double> updateWeights;
 
-    for (int i = lastLayer - 1; i >= 0; --i)
+    for (int i = lastLayer; i > 0; --i)
     {
         auto currentLayer = m_layers.GetLayer(i);
+        auto prevLayer = m_layers.GetLayer(i-1);
         auto countWeight = currentLayer->m_weightsSize;
         auto currentNeurons = currentLayer->m_height;
-        
-        for (size_t i = 0; i < countWeight; ++i)
+
+        for (size_t i = 0; i < currentNeurons; ++i)
         {
-            auto numberOutput = i % answerSize;
-            updateWeights.emplace_back(m_outputDiff[numberOutput] * 1 /*Добавить производную*/ * 1 /*Выходное значение предыдущего нейрона*/);
+            for (size_t j = 0; j < prevLayer->m_height; ++j)
+            {
+                auto val = m_outputDiff[i] * currentLayer->m_DerfuncActivation(currentLayer->m_value[i]) * prevLayer->m_value[j];
+                updateWeights.emplace_back(val);
+                GetWeightBeetween(j, i, prevLayer, currentLayer) -= val;
+            }
         }
     }
 }
