@@ -3,6 +3,8 @@
 #endif
 #include "ActivationFunctions.h"
 
+#include <math.h>
+
 double BinaryFunc(double value)
 {
 	if (value >= 0.5)
@@ -14,4 +16,14 @@ double BinaryFunc(double value)
 double DerBinaryFunc(double value)
 {
 	return 1.0;
+}
+
+double LogisticFunc(double value)
+{
+	return 1.0 / (1.0 + exp(-value));
+}
+
+double DerLogisticFunc(double value)
+{
+	return LogisticFunc(value) * (1 - LogisticFunc(value));
 }

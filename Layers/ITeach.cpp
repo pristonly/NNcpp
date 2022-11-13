@@ -131,27 +131,42 @@ void TEACHER::GetBatchError(const batch& Batch)
     m_error /= batchSize;
 }
 
+static double GetGradient(double prevDelta, double derive, double outputPrevLayer)
+{
+    double gradient = prevDelta * derive * outputPrevLayer;
+    return gradient;
+}
+
 void TEACHER::UpdateWeights()
 {
     auto lastLayer = m_layers.Size() - 1;
     auto answerSize = m_layers.GetLayer(lastLayer)->m_height;
     std::vector<double> updateWeights;
-
+    std::vector<double> delta = m_outputDiff;
+    std::vector<double> newDelta;
     for (int i = lastLayer; i > 0; --i)
     {
         auto currentLayer = m_layers.GetLayer(i);
         auto prevLayer = m_layers.GetLayer(i-1);
         auto countWeight = currentLayer->m_weightsSize;
         auto currentNeurons = currentLayer->m_height;
-
+        newDelta.resize(prevLayer->m_height, 0.0);
         for (size_t i = 0; i < currentNeurons; ++i)
-        {
+        {           
             for (size_t j = 0; j < prevLayer->m_height; ++j)
             {
-                auto val = m_outputDiff[i] * currentLayer->m_DerfuncActivation(currentLayer->m_value[i]) * prevLayer->m_value[j];
+                auto currentNDeriv = currentLayer->m_DerfuncActivation(currentLayer->m_value[i]);
+                newDelta[j] += (currentNDeriv * delta[i] * GetWeightBeetween(i, j, prevLayer, currentLayer));
+                auto val = GetGradient(delta[i], currentNDeriv, prevLayer->m_value[j]);
                 updateWeights.emplace_back(val);
-                GetWeightBeetween(j, i, prevLayer, currentLayer) -= val;
+                //GetWeightBeetween(j, i, prevLayer, currentLayer) -= (m_teachingCoeff * val);
             }
         }
+        delta = std::move(newDelta);
     }
+}
+
+void TEACHER::NormilizeData()
+{
+    // Пройтись по датасету и вычесть среднее для нормализации среднего значения
 }

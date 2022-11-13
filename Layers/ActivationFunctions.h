@@ -7,3 +7,5 @@
 
 IMPORT_EXPORT double BinaryFunc(double value);
 IMPORT_EXPORT double DerBinaryFunc(double value);
+IMPORT_EXPORT double LogisticFunc(double value);
+IMPORT_EXPORT double DerLogisticFunc(double value);

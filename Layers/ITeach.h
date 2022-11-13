@@ -41,6 +41,7 @@ class IMPORT_EXPORT TEACHER : public FORWARD_DISTURB
 public:
 	TEACHER(DataSet& dataset) : m_teachingCoeff(0.05), m_teachingData(dataset) {}
 	void StartTeaching();
+	void NormilizeData();
 private:
 	void GetBatchError(const batch&);
 	void UpdateWeights();
